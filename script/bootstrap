@@ -9,10 +9,10 @@ function bootstrap {
 
   local url_consul="url_consul_$(uname -s)"
   local fnm_consul="$(basename "${!url_consul}")"
-  cache curl "$fnm_consul" "${!url_consul}" -sL -L
+  cache curl "$fnm_consul" "${!url_consul}" -sS -L
   
   pushd bin
-  unzip -o "${BASEBOX_CACHE}/curl/$fnm_terraform"
+  unzip -o "${BASEBOX_CACHE}/curl/$fnm_consul"
   chmod 755 consul
   popd
 }
