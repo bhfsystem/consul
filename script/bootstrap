@@ -9,7 +9,7 @@ function bootstrap {
 
   local url_consul="url_consul_$(uname -s)"
   local fnm_consul="$(basename "${!url_consul}")"
-  cache curl "$fnm_consul" "${!url_consul}" -sS -L
+  cache curl "$fnm_consul" "${!url_consul}"
   
   pushd bin
   unzip -o "${BASEBOX_CACHE}/curl/$fnm_consul"
