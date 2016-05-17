@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+function consul_server {
+  local shome="$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  cd "$shome"
+  exec consul agent -server -bootstrap -config-dir="${shome}/etc" -advertise "172.28.128.1"
+}
+
+consul_server "$@"
