@@ -4,8 +4,8 @@ function bootstrap {
   local shome="$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"
   source "$shome/script/profile"
 
-  local url_consul_Darwin='https://releases.hashicorp.com/consul/0.6.3/consul_0.6.3_darwin_amd64.zip'
-  local url_consul_Linux='https://releases.hashicorp.com/consul/0.6.3/consul_0.6.3_linux_amd64.zip'
+  local url_consul_Darwin='https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_darwin_amd64.zip'
+  local url_consul_Linux='https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip'
 
   local url_consul="url_consul_$(uname -s)"
   local fnm_consul="$(basename "${!url_consul}")"
