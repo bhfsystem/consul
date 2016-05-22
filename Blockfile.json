@@ -1,5 +1,32 @@
 {
   "require": [
     "curl"
-  ]
+  ],
+  "service": {
+    "bootstrap": {
+      "run": "script/server bootstrap",
+      "env": {
+        "dc": "",
+        "data_dir": "",
+        "advertise": ""
+      }
+    },
+    "server": {
+      "run": "script/server server",
+      "env": {
+        "dc": "",
+        "data_dir": "",
+        "advertise": "",
+        "join": ""
+      }
+    },
+    "agent": {
+      "run": "script/server agent",
+      "env": {
+        "data_dir": "",
+        "advertise": "",
+        "join": ""
+      }
+    }
+  }
 }
