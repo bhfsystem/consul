@@ -1,6 +1,7 @@
 {
   "require": [
-    "curl"
+    "curl",
+    "facts"
   ],
   "service": {
     "bootstrap": {

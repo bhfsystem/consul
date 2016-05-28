@@ -5,7 +5,14 @@ function consul_server {
   source "$shome/script/profile"
 
   cd "$shome"
-  exec consul agent -server -bootstrap -config-dir="${shome}/etc" -advertise "172.28.128.1"
+  case "${1:-}" in
+    join)
+      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "172.28.128.1"
+      ;;
+    *)
+      exec consul agent -config-dir="${shome}/etc" -advertise "172.28.128.1" -server -bootstrap
+      ;;
+  esac
 }
 
 consul_server "$@"
