@@ -7,10 +7,10 @@ function consul_server {
   cd "$shome"
   case "${1:-}" in
     join)
-      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "172.28.128.1"
+      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}"
       ;;
     *)
-      exec consul agent -config-dir="${shome}/etc" -advertise "172.28.128.1" -server -bootstrap
+      exec consul agent -config-dir="${shome}/etc" -advertise "${CACHE_VIP}" -server -bootstrap
       ;;
   esac
 }
