@@ -5,13 +5,10 @@
   ],
   "service": {
     "consul": {
-      "run": "script/server"
     },
     "bootstrap": {
-      "run": "script/server bootstrap"
     },
     "agent": {
-      "run": "script/server agent"
     }
   }
 }
