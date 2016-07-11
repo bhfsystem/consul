@@ -12,7 +12,7 @@ function consul_server {
     agent)
       exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}"
       ;;
-    bootstrap)
+    consul|bootstrap)
       exec consul agent -config-dir="${shome}/etc" -advertise "${CACHE_VIP}" -server -bootstrap
       ;;
     *)
