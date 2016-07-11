@@ -1,9 +1,0 @@
-{
-  "services": {
-    "consul": {
-      "run": "~/work/consul/script/server",
-      "env": {
-      }
-    }
-  }
-}
