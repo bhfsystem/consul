@@ -8,7 +8,6 @@ function consul_server {
     set -- bootstrap
   fi
 
-  cd "$shome"
   case "${1:-}" in
     agent)
       exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}"
