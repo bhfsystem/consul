@@ -5,14 +5,14 @@ function consul_server {
   source "$shome/script/profile"
 
   if [[ "$#" == 0 ]]; then
-    set -- bootstrap
+    set -- default
   fi
 
   case "${1:-}" in
     agent)
       exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}"
       ;;
-    consul|bootstrap)
+    default|bootstrap)
       exec consul agent -config-dir="${shome}/etc" -advertise "${CACHE_VIP}" -server -bootstrap
       ;;
     *)
