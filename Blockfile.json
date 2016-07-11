@@ -5,29 +5,10 @@
   ],
   "service": {
     "bootstrap": {
-      "run": "script/server bootstrap",
-      "env": {
-        "dc": "",
-        "data_dir": "",
-        "advertise": ""
-      }
-    },
-    "server": {
-      "run": "script/server server",
-      "env": {
-        "dc": "",
-        "data_dir": "",
-        "advertise": "",
-        "join": ""
-      }
+      "run": "script/server bootstrap"
     },
     "agent": {
-      "run": "script/server agent",
-      "env": {
-        "data_dir": "",
-        "advertise": "",
-        "join": ""
-      }
+      "run": "script/server agent"
     }
   }
 }
