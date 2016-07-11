@@ -3,8 +3,6 @@
 function home_update {
   local shome="${_consul_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
   source "$shome/script/profile"
-
-  block compile service
 }
 
 home_update "$@"
