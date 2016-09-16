@@ -10,10 +10,10 @@ function consul_server {
 
   case "${1:-}" in
     bootstrap|server)
-      exec consul agent -config-dir="${shome}/etc" -advertise "${CACHE_VIP}" -server -bootstrap
+      exec consul agent -config-dir="${shome}/etc" -advertise "${CACHE_VIP}" -server -bootstrap ${CONSUL_NODE:+-node "$CONSUL_NODE"}
       ;;
     default|agent)
-      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}"
+      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}" ${CONSUL_NODE:+-node "$CONSUL_NODE"}
       ;;
     *)
       echo "ERROR: unknown server command: ${1:-/not-supplied/}" 1>&2
