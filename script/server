@@ -9,11 +9,11 @@ function consul_server {
   fi
 
   case "${1:-}" in
-    agent)
-      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}"
-      ;;
-    default|bootstrap)
+    bootstrap|server)
       exec consul agent -config-dir="${shome}/etc" -advertise "${CACHE_VIP}" -server -bootstrap
+      ;;
+    default|agent)
+      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}"
       ;;
     *)
       echo "ERROR: unknown server command: ${1:-/not-supplied/}" 1>&2
