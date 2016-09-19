@@ -13,7 +13,7 @@ function consul_server {
       exec consul agent -config-dir="${shome}/etc" -advertise "${CACHE_VIP}" -server -bootstrap ${CONSUL_NODE:+-node "$CONSUL_NODE"}
       ;;
     default|agent)
-      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '.eth1.ipv4.address')" -join "${CACHE_VIP}" ${CONSUL_NODE:+-node "$CONSUL_NODE"}
+      exec consul agent -config-dir="${shome}/etc" -advertise "$(facts -r '[.fan_250,.eth1,.meh] | flatten[] | .ipv4.address' | head -1)" -join "${CACHE_VIP}" ${CONSUL_NODE:+-node "$CONSUL_NODE"}
       ;;
     *)
       echo "ERROR: unknown server command: ${1:-/not-supplied/}" 1>&2
