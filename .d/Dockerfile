@@ -6,4 +6,6 @@
                                 
 FROM 172.28.128.1/block:consul
 
+ARG SERIAL
+
 RUN rm -f service/consul-agent
