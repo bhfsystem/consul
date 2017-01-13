@@ -7,5 +7,6 @@
 FROM cache.nih/block:consul
 
 ARG SERIAL
+ARG CACHE
 
 RUN rm -f service/consul-agent
