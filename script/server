@@ -11,7 +11,7 @@ function consul_server {
   case "${1:-}" in
     default)
       cd "$shome"
-      exec consul agent -config-dir="/config/consul" -server -bootstrap
+      exec consul agent -config-dir="/config/consul" -server -bootstrap -data-dir="$shome/data-$(facts '.default_ipv4.address')"
       ;;
     *)
       echo "ERROR: unknown server command: ${1:-/not-supplied/}" 1>&2
