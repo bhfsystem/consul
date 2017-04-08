@@ -11,7 +11,22 @@ function consul_server {
   case "${1:-}" in
     default)
       cd "$shome"
-      exec consul agent -config-dir="/config/consul" -client 0.0.0.0 -server -bootstrap -data-dir="$shome/data-$(facts '.default_ipv4.address')"
+
+      local pth_data="$shome/data-$(facts '.default_ipv4.address')"
+
+      local fl_primary=
+
+      if [[ -z "$fl_primary" ]]; then
+        if [[ ! -f "${pth_data}/node-id" || "$(cat /proc/sys/kernel/random/boot_id 2>/dev/null)" == "$(cat "${pth_data}/node-id" 2>/dev/null)" ]]; then
+          mkdir -p "${pth_data}"
+          cat /proc/sys/kernel/random/uuid > "${pth_data}/node-id.1"
+          mv -f "${pth_data}/node-id.1" "${pth_data}/node-id"
+        fi
+
+        exec consul agent -config-dir="/config/consul" -client 0.0.0.0 -server -join consul -data-dir="$pth_data" -node-id "$(cat "${pth_data}/node-id")"
+      else
+        exec consul agent -config-dir="/config/consul" -client 0.0.0.0 -server -bootstrap -data-dir="$pth_data"
+      fi
       ;;
     *)
       echo "ERROR: unknown server command: ${1:-/not-supplied/}" 1>&2
