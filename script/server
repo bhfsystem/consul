@@ -12,19 +12,14 @@ function consul_server {
     default)
       cd "$shome"
 
-      local pth_data="$shome/data-$(facts '.default_ipv4.address')"
-
       if [[ "${SERVICE_8500_NAME:-}" == "consul" ]]; then
-        exec consul agent -config-dir="/config/consul" -client 0.0.0.0 -server -bootstrap -data-dir="$pth_data" -node "${SERVICE:+${SERVICE}-}$(uname -n)"
+        set -- -bootstrap
       else
-        if [[ ! -f "${pth_data}/node-id" || "$(cat /proc/sys/kernel/random/boot_id 2>/dev/null)" == "$(cat "${pth_data}/node-id" 2>/dev/null)" ]]; then
-          mkdir -p "${pth_data}"
-          cat /proc/sys/kernel/random/uuid > "${pth_data}/node-id.1"
-          mv -f "${pth_data}/node-id.1" "${pth_data}/node-id"
-        fi
-
-        exec consul agent -config-dir="/config/consul" -client 0.0.0.0 -server -join consul -data-dir="$pth_data" -node-id "$(cat "${pth_data}/node-id")" -node "${SERVICE:+${SERVICE}-}$(uname -n)"
+        set -- -join consul
       fi
+
+      local pth_data="$shome/data-$(facts '.default_ipv4.address')"
+      exec consul agent -disable-host-node-id -config-dir="/config/consul" -client 0.0.0.0 -server -data-dir="$pth_data" -node "${SERVICE:+${SERVICE}-}$(uname -n)" "$@"
       ;;
     *)
       echo "ERROR: unknown server command: ${1:-/not-supplied/}" 1>&2
