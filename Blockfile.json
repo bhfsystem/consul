@@ -2,13 +2,5 @@
   "require": [
     "curl",
     "facts"
-  ],
-  "service": {
-    "consul": {
-    },
-    "bootstrap": {
-    },
-    "agent": {
-    }
-  }
+  ]
 }
